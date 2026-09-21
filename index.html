@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" sizes="32x32" href="https://static.wixstatic.com/media/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png/v1/fill/w_32,h_32,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://static.wixstatic.com/media/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png/v1/fill/w_192,h_192,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png">
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png/v1/fill/w_180,h_180,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png">
+<link rel="canonical" href="https://quartsamunt.com/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quarts Amunt — El programa casteller de Domenys Ràdio</title>
+<meta name="description" content="Programa casteller cada dijous a les 19:30 a Domenys Ràdio 107.6 FM. Donem veu a les colles petites i mitjanes.">
+<meta property="og:title" content="Quarts Amunt — El programa casteller de Domenys Ràdio">
+<meta property="og:description" content="Programa casteller cada dijous a les 19:30 a Domenys Ràdio 107.6 FM. Donem veu a les colles petites i mitjanes.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://quartsamunt.com/fotos/placa.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{
+  --negre:#100E0D; --negre-2:#1A1614;
+  --vermell:#C0392B; --vermell-clar:#E8604A;
+  --crema:#F7F3EB; --crema-2:#EBE3D6;
+  --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--crema);color:var(--negre);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+a{color:inherit}
+h1,h2,h3,h4{line-height:1.02;letter-spacing:-.02em;font-weight:800}
+.mega{text-transform:uppercase;font-weight:800;line-height:.98}
+.nota{position:fixed;right:14px;bottom:14px;z-index:99;background:#111;color:#fff;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;padding:7px 13px;border-radius:99px;opacity:.8}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:60;background:rgba(16,14,13,.97);backdrop-filter:blur(9px);
+  border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-in{display:flex;align-items:center;gap:28px;height:78px}
+.logo{height:50px;width:50px;border-radius:50%;flex:none}
+.nav-links{display:flex;gap:25px;margin-left:auto;list-style:none;flex-wrap:wrap;align-items:center}
+.nav-links a{color:var(--crema);text-decoration:none;font-size:12px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;opacity:.8;transition:.15s}
+.nav-links a:hover{opacity:1;color:var(--vermell-clar)}
+.nav-cta{background:var(--vermell);color:#fff!important;padding:10px 18px;border-radius:3px;opacity:1!important}
+
+/* HERO */
+.hero{position:relative;height:86vh;min-height:540px;background:var(--negre);overflow:hidden}
+.slide{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;
+  opacity:0;transition:opacity 1.15s ease;padding:0 28px;
+  background-size:cover;background-position:center}
+.slide.on{opacity:1}
+.slide::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(16,14,13,.42) 0%,rgba(16,14,13,.68) 55%,rgba(16,14,13,.86) 100%)}
+.s1{background-image:url('fotos/placa.jpg')}
+.s2{background-image:url('fotos/cotxe.jpg')}
+.s3{background-image:url('fotos/ventall.jpg')}
+.slide-in{position:relative;z-index:1;max-width:980px;
+  opacity:0;transition:opacity .28s ease}
+.slide.on .slide-in{opacity:1;transition:opacity .55s ease .45s}
+.slide h1{font-size:clamp(40px,7.6vw,92px);text-transform:uppercase;line-height:.97;
+  text-shadow:0 3px 30px rgba(0,0,0,.45)}
+.slide h2{font-size:clamp(14px,2.2vw,25px);text-transform:uppercase;font-weight:700;
+  letter-spacing:.13em;margin-top:20px;color:#eee4d8;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.slide .btn{margin-top:34px}
+.dots{position:absolute;bottom:36px;left:0;right:0;display:flex;gap:9px;justify-content:center;z-index:3}
+.dots button{width:9px;height:9px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.4);padding:0;transition:.2s}
+.dots button.on{background:var(--vermell-clar);width:26px;border-radius:99px}
+
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 30px;border-radius:3px;
+  text-decoration:none;font-weight:800;font-size:13px;letter-spacing:.11em;text-transform:uppercase;
+  transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.09)}
+.btn-1{background:var(--vermell);color:#fff}
+.btn-2{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+
+section{padding:82px 0}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--vermell);margin-bottom:12px}
+h2.tit{font-size:clamp(28px,4.3vw,46px);text-transform:uppercase}
+.lead{font-size:17px;color:#5f584f;max-width:62ch;line-height:1.65;margin-top:14px}
+.sec-head{margin-bottom:38px}
+
+/* AGENDA */
+.agenda{background:var(--crema);border-top:5px solid var(--vermell)}
+.ag-top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:32px}
+.ag-item{display:grid;grid-template-columns:110px 210px 1fr auto;gap:26px;align-items:center;
+  background:#fff;border-radius:4px;padding:22px 26px;margin-bottom:12px;
+  border-left:5px solid var(--vermell);transition:.18s}
+.ag-item:hover{transform:translateX(4px);box-shadow:0 10px 26px rgba(0,0,0,.09)}
+.ag-data{text-align:center;border-right:1px solid #e6ded1;padding-right:10px}
+.ag-dia{font-size:46px;font-weight:800;line-height:.9;letter-spacing:-.04em;color:var(--vermell)}
+.ag-mes{font-size:11.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#8b8279;margin-top:6px}
+.ag-lloc h3{font-size:21px;text-transform:uppercase}
+.ag-lloc span{font-size:13px;color:#8b8279}
+.ag-prog{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--crema-2);border-radius:99px;padding:6px 13px;font-size:12.5px;font-weight:600;color:#544d45}
+.chip b{color:var(--vermell);font-weight:800}
+.ag-buit{background:#fff;border:2px dashed #ddd3c3;border-radius:4px;padding:24px;
+  text-align:center;color:#9c9287;font-size:14.5px}
+
+/* PROGRAMES */
+.programes{background:var(--negre);color:var(--crema)}
+.programes .lead{color:#a9a098}
+.prog-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:start}
+.player{border-radius:5px;overflow:hidden;background:#191414;min-height:352px}
+.player iframe{display:block;width:100%;border:0}
+.prog-foto{width:100%;border-radius:5px;display:block;margin-bottom:24px}
+.prog-side h3{font-size:23px;text-transform:uppercase;margin-bottom:14px}
+.prog-side p{color:#a9a098;font-size:15.5px;line-height:1.65;margin-bottom:22px}
+.prog-meta{display:grid;gap:1px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin-bottom:24px}
+.prog-meta div{background:var(--negre);padding:13px 18px;display:flex;justify-content:space-between;font-size:14.5px}
+.prog-meta span:first-child{color:#8b8279;letter-spacing:.06em;text-transform:uppercase;font-size:11.5px;font-weight:700}
+.prog-meta span:last-child{font-weight:700}
+
+/* XIFRES */
+.xifres{background:var(--vermell);color:#fff;padding:64px 0}
+.x-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.x-num{font-size:clamp(34px,4.8vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.x-lab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:10px;opacity:.85;font-weight:700}
+.x-sub{font-size:11px;opacity:.6;margin-top:4px;letter-spacing:.04em;text-transform:none}
+
+/* QUI SOM */
+.quisom-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.quisom-grid img{width:100%;height:auto;border-radius:5px;display:block}
+
+/* BANDA */
+.banda{position:relative;min-height:460px;display:grid;place-items:center;text-align:center;
+  color:#fff;padding:88px 28px;background-size:cover;background-position:center 60%;
+  background-image:linear-gradient(rgba(16,14,13,.66),rgba(16,14,13,.78)),url('fotos/pinya.jpg')}
+.banda .eyebrow{color:var(--vermell-clar)}
+.banda h2{font-size:clamp(28px,5vw,56px);text-transform:uppercase;max-width:17ch;margin:0 auto;line-height:1.03}
+
+/* TILES */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#ddd3c3}
+.tile{background:var(--crema);padding:44px 26px;text-align:center;text-decoration:none;transition:.2s;display:block}
+.tile:hover{background:#fff}
+.tile h3{font-size:19px;text-transform:uppercase;margin-bottom:8px}
+.tile p{font-size:13.5px;color:#8b8279;margin-bottom:20px;min-height:38px}
+.tile .btn{padding:11px 22px;font-size:11.5px}
+
+
+/* XARXES */
+.xarxes{background:var(--negre);color:var(--crema)}
+.xarxes .lead{color:#a9a098}
+.xx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.xx a{position:relative;overflow:hidden;border-radius:5px;padding:38px 30px;text-decoration:none;
+  color:#fff;display:block;transition:transform .2s;background:#1A1614;
+  border:1px solid rgba(255,255,255,.09)}
+.xx a:hover{transform:translateY(-5px)}
+.xx a::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .25s}
+.xx a:hover::after{opacity:1}
+.xx .ig::after{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.xx .tt::after{background:linear-gradient(45deg,#25F4EE,#000,#FE2C55)}
+.xx .fb::after{background:#1877F2}
+.xx .in{position:relative;z-index:1}
+.xx svg{width:36px;height:36px;margin-bottom:20px;flex:none}
+.xx h3{font-size:21px;text-transform:uppercase;margin-bottom:6px}
+.xx .num{font-size:30px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
+.xx p{font-size:13.5px;color:#a9a098;transition:color .25s}
+.xx a:hover p{color:rgba(255,255,255,.85)}
+.xx .rec{list-style:none;padding:14px 0 0;margin:16px 0 0;border-top:1px solid rgba(255,255,255,.14)}
+.xx .rec li{font-size:13px;color:#a9a098;line-height:1.8;transition:color .25s}
+.xx .rec b{color:var(--crema);font-weight:800;font-size:14.5px;letter-spacing:-.01em}
+.xx a:hover .rec li{color:rgba(255,255,255,.8)}
+.xx a:hover .rec b{color:#fff}
+.xx .anar{margin-top:20px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+@media(max-width:900px){.xx{grid-template-columns:1fr}}
+
+/* PATROCINADORS */
+.patro{background:var(--crema-2);text-align:center}
+.patro-lab{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#8b8279;margin:32px 0 16px}
+.logos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.logo-card{background:#fff;border-radius:3px;aspect-ratio:3/2;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  text-decoration:none;font-weight:800;font-size:13.5px;color:#3d372f;padding:26px;
+  border:1px solid rgba(0,0,0,.05);transition:.16s;line-height:1.3;overflow:hidden}
+.logo-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.1);color:var(--vermell)}
+.logo-card img{max-width:100%;max-height:88px;width:auto;height:auto;min-width:0;
+  object-fit:contain;transition:transform .2s}
+.logo-card:hover img{transform:scale(1.05)}
+.logo-card small{display:block;font-size:10px;font-weight:600;color:#a89f92;
+  letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+.logo-buit{background:transparent;border:2px dashed rgba(0,0,0,.16);color:#988f83}
+.logo-pend{border:2px dashed rgba(192,57,43,.35)}
+.patro-cta{margin-top:40px;background:var(--negre);color:var(--crema);border-radius:5px;padding:44px;
+  display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.6fr);gap:32px;align-items:center;text-align:left}
+.patro-cta h3{font-size:25px;text-transform:uppercase;margin-bottom:12px}
+.patro-cta p{color:#a9a098;font-size:15.5px;line-height:1.6}
+
+/* FOOTER */
+footer{background:var(--negre);color:#8b8279;padding:60px 0 32px;font-size:14px}
+.f-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;margin-bottom:38px}
+footer h4{color:var(--crema);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+footer a{color:#8b8279;text-decoration:none}
+footer a:hover{color:var(--vermell-clar)}
+.f-soc{display:flex;gap:10px;margin-top:18px}
+.f-soc a{width:40px;height:40px;border:1.5px solid rgba(255,255,255,.18);border-radius:50%;
+  display:grid;place-items:center;font-size:11.5px;font-weight:800;transition:.16s}
+.f-soc a:hover{background:var(--vermell);color:#fff;border-color:var(--vermell)}
+.f-bot{border-top:1px solid rgba(255,255,255,.09);padding-top:22px;display:flex;flex-wrap:wrap;
+  gap:10px 22px;justify-content:center;font-size:13px}
+.credit{text-align:center;font-size:11.5px;color:#5d564f;margin-top:14px}
+
+@media(max-width:960px){
+  .nav-links{display:none}
+  .prog-grid,.patro-cta,.f-grid,.quisom-grid{grid-template-columns:1fr}
+  .tiles,.x-grid,.logos{grid-template-columns:repeat(2,1fr)}
+  .ag-item{grid-template-columns:88px 1fr;gap:18px}
+  .ag-prog,.ag-item .btn{grid-column:1/-1}
+  .ag-data{border-right:0}
+  section{padding:58px 0}
+}
+</style>
+
+<style>
+/* menú mòbil */
+.nav-toggle{display:none;margin-left:auto;background:none;border:0;cursor:pointer;
+  padding:11px 4px;line-height:0}
+.nav-toggle span{display:block;width:26px;height:2px;background:#F7F3EB;
+  margin:5px 0;transition:transform .25s,opacity .2s;border-radius:2px}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:960px){
+  .nav-in{position:relative}
+  .nav-toggle{display:block}
+  .nav-links{display:none!important;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;margin:0;padding:6px 0 14px;
+    background:rgba(16,14,13,.99);border-bottom:3px solid #C0392B;
+    box-shadow:0 18px 34px rgba(0,0,0,.3)}
+  .nav-links.obert{display:flex!important}
+  .nav-links li{width:100%}
+  .nav-links a{display:block;padding:15px 28px;font-size:13.5px;opacity:1;letter-spacing:.1em}
+  .nav-links a.nav-cta{margin:12px 28px 2px;text-align:center}
+}
+</style>
+
+<style>
+/* icones de xarxes */
+.f-soc{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.f-soc a{width:46px;height:46px;border:1.5px solid rgba(255,255,255,.2);border-radius:50%;
+  display:grid;place-items:center;transition:transform .18s,background .18s,border-color .18s;color:#a9a098}
+.f-soc a svg{width:21px;height:21px}
+.f-soc a:hover{transform:translateY(-3px);color:#fff;border-color:transparent}
+.f-soc a.s-ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.f-soc a.s-tt:hover{background:#000}
+.f-soc a.s-fb:hover{background:#1877F2}
+.f-soc a.s-sp:hover{background:#1DB954}
+</style>
+
+<style>
+/* ===== Barra EN DIRECTE (dijous) ===== */
+.topstick{position:sticky;top:0;z-index:70}
+.topstick nav{position:static;top:auto;z-index:auto}
+#directe{display:none;background:var(--vermell,#C0392B);color:#fff;
+  box-shadow:0 2px 14px rgba(0,0,0,.25)}
+#directe.on{display:block}
+.directe-in{display:flex;align-items:center;gap:14px;padding:10px 28px;flex-wrap:wrap}
+.directe-dot{width:10px;height:10px;border-radius:50%;background:#fff;flex:none;
+  animation:dpuls 1.4s ease-in-out infinite}
+@keyframes dpuls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.directe-tag{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12.5px}
+.directe-txt{font-size:14px;opacity:.92;flex:1 1 auto}
+.directe-btn{background:#fff;color:var(--vermell,#C0392B);text-decoration:none;
+  font-weight:800;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:10px 20px;border-radius:999px;white-space:nowrap;flex:none;
+  transition:transform .15s,box-shadow .15s}
+.directe-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+@media(max-width:700px){
+  .directe-in{gap:9px;padding:9px 18px}
+  .directe-txt{display:none}
+  .directe-tag{font-size:11.5px}
+  .directe-btn{font-size:11.5px;padding:9px 15px;margin-left:auto}
+}
+@media(prefers-reduced-motion:reduce){.directe-dot{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="topstick">
+<div id="directe">
+  <div class="wrap directe-in">
+    <span class="directe-dot"></span>
+    <span class="directe-tag">Ara en directe</span>
+    <span class="directe-txt">Estem emetent Quarts Amunt</span>
+    <a class="directe-btn" href="https://www.domenysradio.cat/" target="_blank" rel="noopener">Escolta'ns en directe</a>
+  </div>
+</div>
+<nav>
+  <div class="wrap nav-in">
+    <img class="logo" src="https://static.wixstatic.com/media/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png" alt="Quarts Amunt">
+    <button class="nav-toggle" aria-label="Obrir el menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="concurs.html">Concurs</a></li>
+    <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="qui-som.html">Qui som</a></li>
+      <li><a href="equip.html">Equip</a></li>
+      <li><a href="programes.html">Programes</a></li>
+      <li><a href="patrocinadors.html">Patrocinadors</a></li>
+      <li><a href="uneix-t-hi.html">Uneix-t'hi</a></li>
+      <li><a href="#contacte" class="nav-cta">Contacte</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<header class="hero">
+  <div class="slide s1 on"><div class="slide-in">
+    <h1 class="mega">Quarts Amunt</h1>
+    <h2>Donem veu a les colles que no en tenen</h2>
+    <a class="btn btn-1" href="#programes">Escolta'ns</a>
+  </div></div>
+  <div class="slide s2"><div class="slide-in">
+    <h1 class="mega">Cada dijous<br>a les 19:30</h1>
+    <h2>En directe a Domenys Ràdio · 107.6 FM</h2>
+    <a class="btn btn-2" href="#programes">Tots els programes</a>
+  </div></div>
+  <div class="slide s3"><div class="slide-in">
+    <h1 class="mega">Concurs<br>de Castells</h1>
+    <h2>19 de setembre · La Bisbal del Penedès</h2>
+    <a class="btn btn-1" href="concurs.html">Vull saber-ne més</a>
+  </div></div>
+  <div class="dots">
+    <button class="on" data-i="0" aria-label="1"></button>
+    <button data-i="1" aria-label="2"></button>
+    <button data-i="2" aria-label="3"></button>
+  </div>
+</header>
+
+<!-- AGENDA -->
+<section class="agenda" id="agenda">
+  <div class="wrap">
+    <div class="ag-top">
+      <div>
+        <div class="eyebrow">Agenda</div>
+        <h2 class="tit">L'última diada</h2>
+      </div>
+      <a class="btn btn-1" href="galeria-1r-concurs.html">Fotos i vídeos</a>
+    </div>
+    <div class="ag-item">
+      <div class="ag-data"><div class="ag-dia">19</div><div class="ag-mes">Set 2026</div></div>
+      <div class="ag-lloc"><h3>1r Concurs de Castells</h3><span>La Bisbal del Penedès · ja s'ha fet</span></div>
+      <div class="ag-prog">
+        <span class="chip"><b>1r</b> Colla Castellera La Bisbal del Penedès</span>
+        <span class="chip"><b>1.730</b> punts</span>
+        <span class="chip"><b>6</b> colles a plaça</span>
+      </div>
+      <a class="btn btn-1" href="concurs.html#resultats">Veure resultats</a>
+    </div>
+    <div class="ag-buit">De moment no hi ha més esdeveniments confirmats — n'anirem afegint.</div>
+  </div>
+</section>
+
+<!-- PROGRAMES -->
+<section class="programes" id="programes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" style="color:var(--vermell-clar)">Els programes</div>
+      <h2 class="tit">Escolta'ns quan vulguis</h2>
+      <p class="lead">Cada dijous en directe a Domenys Ràdio. I si te'l perds, el tens sencer a
+        Spotify — dos anys d'entrevistes, diades i converses del món casteller.</p>
+    </div>
+    <div class="prog-grid">
+      <div class="player">
+        <iframe src="https://open.spotify.com/embed/show/0EzfzGZ8soaQ5lMT1SHshQ?utm_source=generator&theme=0"
+          height="430" frameborder="0" loading="lazy"
+          allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          title="Quarts Amunt a Spotify"></iframe>
+      </div>
+      <div class="prog-side">
+        <img class="prog-foto" src="fotos/radio.jpg" alt="Quarts Amunt a Domenys Ràdio">
+        <h3>Quarts Amunt!</h3>
+        <p>Presentat i dirigit per Eduard Xufré i Gerard Xufré. Un programa dedicat de dalt a
+          baix al món casteller, amb humor i sense solemnitats.</p>
+        <div class="prog-meta">
+          <div><span>Quan</span><span>Dijous 19:30 – 21:00</span></div>
+          <div><span>On</span><span>Domenys Ràdio · 107.6 FM</span></div>
+          <div><span>Episodis</span><span>30+</span></div>
+          <div><span>Des de</span><span>2024</span></div>
+        </div>
+        <a class="btn btn-1" href="https://open.spotify.com/show/0EzfzGZ8soaQ5lMT1SHshQ"
+          target="_blank" rel="noopener">Obrir a Spotify</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- XIFRES -->
+<section class="xifres">
+  <div class="wrap x-grid">
+    <div><div class="x-num" data-to="300000">300.000</div><div class="x-lab">Rècord mensual<div class="x-sub">de visualitzacions</div></div></div>
+    <div><div class="x-num" data-to="69400">69.400</div><div class="x-lab">El vídeo més vist<div class="x-sub">a TikTok</div></div></div>
+    <div><div class="x-num" data-to="3016">3.016</div><div class="x-lab">Seguidors<div class="x-sub">a Instagram</div></div></div>
+    <div><div class="x-num" data-to="30" data-suf="+">30+</div><div class="x-lab">Programes<div class="x-sub">des de 2024</div></div></div>
+  </div>
+</section>
+
+<!-- QUI SOM -->
+<section id="quisom">
+  <div class="wrap quisom-grid">
+    <div>
+      <div class="eyebrow">Qui som</div>
+      <h2 class="tit">Un projecte casteller<br>modern i alegre</h2>
+      <p class="lead">Som Quarts Amunt, un projecte casteller nascut a l'Arboç. Sobretot donem veu
+        a les colles que no en tenen: les petites i les mitjanes, perquè cada colla té una història
+        que val la pena explicar. Des de 2024 compartim ràdio, diades i esdeveniments en directe,
+        amb humor i sense solemnitats, retornant la vida castellera a places que l'havien perdut.</p>
+      <div style="margin-top:30px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-1" href="qui-som.html">La nostra història</a>
+        <a class="btn" style="background:transparent;color:var(--vermell);border:1.5px solid rgba(192,57,43,.45)" href="equip.html">Coneix l'equip</a>
+      </div>
+    </div>
+    <img src="fotos/equip.jpg" alt="L'equip de Quarts Amunt">
+  </div>
+</section>
+
+<!-- BANDA SERVEIS -->
+<section class="banda" id="serveis" style="padding:88px 28px">
+  <div>
+    <div class="eyebrow">Serveis</div>
+    <h2 class="mega">Activitats castelleres allà on diguis</h2>
+    <p style="max-width:56ch;margin:22px auto 0;color:#ded4c8;font-size:16.5px">
+      Per a ajuntaments, empreses, escoles, universitats i col·lectius. Adaptem cada proposta
+      per apropar el món dels castells d'una manera participativa i educativa.</p>
+    <a class="btn btn-1" style="margin-top:32px" href="#contacte">+ Info</a>
+  </div>
+</section>
+
+<!-- TILES -->
+<div class="tiles">
+  <a class="tile" href="programes.html"><h3>Programes</h3><p>Tots els episodis, sencers</p><span class="btn btn-1">Escoltar</span></a>
+  <a class="tile" href="equip.html"><h3>Equip</h3><p>Qui hi ha darrere del programa</p><span class="btn btn-1">Conèixer</span></a>
+  <a class="tile" href="#agenda"><h3>Agenda</h3><p>On serem els propers mesos</p><span class="btn btn-1">Calendari</span></a>
+  <a class="tile" href="patrocinadors.html"><h3>Patrocinadors</h3><p>Qui fa possible el programa</p><span class="btn btn-1">Veure</span></a>
+</div>
+
+
+<!-- XARXES -->
+<section class="xarxes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" style="color:var(--vermell-clar)">Xarxes</div>
+      <h2 class="tit">Segueix-nos</h2>
+      <p class="lead">Aquí passa el dia a dia: els moments de les diades, els retalls dels
+        programes i tot el que no cap a l'antena.</p>
+    </div>
+    <div class="xx">
+      <a class="ig" href="https://www.instagram.com/quartsamunt" target="_blank" rel="noopener">
+        <div class="in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C8.74 0 8.33.015 7.05.072 5.78.13 4.9.333 4.14.63c-.79.306-1.46.717-2.13 1.384S.935 3.35.63 4.14C.333 4.9.13 5.78.072 7.05.015 8.33 0 8.74 0 12s.015 3.67.072 4.95c.058 1.27.26 2.15.558 2.91.306.79.717 1.46 1.384 2.13.667.67 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.015 4.95-.072c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.015-3.67-.072-4.95c-.06-1.28-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.012 15.26 0 12 0zm0 2.16c3.2 0 3.58.016 4.85.07 1.17.06 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.015 3.59-.07 4.85c-.06 1.17-.26 1.81-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.86.07s-3.59-.015-4.86-.07c-1.17-.06-1.82-.26-2.24-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.045-1.26-.06-1.65-.06-4.84s.016-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42C8.42 2.18 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zM12 16a4 4 0 110-8 4 4 0 010 8zm7.85-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg><h3>Instagram</h3><div class="num">3.016</div>
+        <p>seguidors · vídeos i fotos de cada diada</p>
+        <ul class="rec"><li><b>47.400</b> la publicació més vista</li><li><b>38.400</b> el reel més vist</li></ul>
+        <div class="anar">Seguir-nos →</div></div></a>
+      <a class="tt" href="https://www.tiktok.com/@quartsamunt" target="_blank" rel="noopener">
+        <div class="in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><h3>TikTok</h3><div class="num">69.400</div>
+        <p>el vídeo més vist · els millors moments</p>
+        <div class="anar">Seguir-nos →</div></div></a>
+      <a class="fb" href="https://www.facebook.com/share/1GNrDV7hcf/" target="_blank" rel="noopener">
+        <div class="in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.86v-8.39H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.51c-1.49 0-1.96.93-1.96 1.88v2.25h3.33l-.53 3.47h-2.8v8.39C19.61 23.02 24 18.06 24 12.07z"/></svg><h3>Facebook</h3><div class="num">Notícies</div>
+        <p>avisos, diades i tot el que organitzem</p>
+        <div class="anar">Seguir-nos →</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- PATROCINADORS -->
+<section class="patro" id="patro">
+  <div class="wrap">
+    <div class="eyebrow">Amb el suport de</div>
+    <h2 class="tit">Els nostres patrocinadors</h2>
+    <div class="patro-lab">Patrocinadors</div>
+    <div class="logos">
+      <a class="logo-card" href="https://www.fetalpais.cat/" target="_blank" rel="noopener" title="FETALPAÍS">
+        <img src="https://static.wixstatic.com/media/367235_ed38d1de00604f3c9155c5f85f7fedee~mv2.png/v1/fill/w_344,h_344,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ORIGINAL-LOGO_tiff.png" alt="FETALPAÍS"></a>
+      <a class="logo-card" href="https://www.estrelladamm.com/" target="_blank" rel="noopener" title="Estrella Damm">
+        <img src="https://static.wixstatic.com/media/367235_9e98bf59da5c459d9d241f43a764a9ba~mv2.png/v1/fill/w_344,h_344,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ED_LOGO_2018_100x100mm-01.png" alt="Estrella Damm"></a>
+      <a class="logo-card" href="https://grupolivamotor.com/" target="_blank" rel="noopener" title="Grup Oliva Motor">
+        <img src="https://static.wixstatic.com/media/367235_22d1bc925d3943e697de056303d777a1~mv2.png/v1/fill/w_344,h_344,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/GRUP_2.png" alt="Grup Oliva Motor"></a>
+      <a class="logo-card" href="https://domeniowines.com/" target="_blank" rel="noopener" title="Cellers Domenys">
+        <img src="https://static.wixstatic.com/media/367235_12809f4a76214fd6bc94a44aacd61fde~mv2.png/v1/fill/w_344,h_344,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1%20(1).png" alt="Cellers Domenys"></a>
+      <a class="logo-card" href="http://embotitsbundo.com/" target="_blank" rel="noopener" title="Embotits Bundó">
+        <img src="https://static.wixstatic.com/media/367235_5ac90b2af2fe4b17a2c13495b942dd8c~mv2.png/v1/fill/w_344,h_344,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2.png" alt="Embotits Bundó"></a>
+      <a class="logo-card" href="https://wesmartpark.com/" target="_blank" rel="noopener" title="WeSmartPark">
+        <img src="https://static.wixstatic.com/media/367235_b41ef4b883404b958736aad42d0b39e1~mv2.png/v1/fill/w_344,h_344,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Scherm%C2%ADafbeelding%202026-03-11%20om%2012_46_30.png" alt="WeSmartPark"></a>
+      <a class="logo-card" href="https://www.bancomediolanum.es/" target="_blank" rel="noopener" title="Banco Mediolanum">
+        <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5e45102d94d8c3000152ad65/0x0.png" alt="Banco Mediolanum"></a>
+      <a class="logo-card logo-buit" href="#contacte">El teu logo aquí<small>vols patrocinar-nos?</small></a>
+    </div>
+    <div class="patro-cta">
+      <div>
+        <h3>Vols patrocinar Quarts Amunt?</h3>
+        <p>Menció en antena cada dijous, logo enllaçat a la web, presència a les diades i als
+          esdeveniments que organitzem. Hem arribat a <b style="color:#fff">300.000 visualitzacions
+          en un sol mes</b>. Escriu-nos i t'expliquem els formats.</p>
+      </div>
+      <div><a class="btn btn-1" href="#contacte">Parlem-ne</a></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contacte">
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <h4>Quarts Amunt</h4>
+        <p>Carrer la Carretera, 4<br>43713 Sant Jaume dels Domenys<br>Tarragona</p>
+        <div class="f-soc">
+          <a href="https://www.instagram.com/quartsamunt" target="_blank" rel="noopener" aria-label="Instagram" class="s-ig"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C8.74 0 8.33.015 7.05.072 5.78.13 4.9.333 4.14.63c-.79.306-1.46.717-2.13 1.384S.935 3.35.63 4.14C.333 4.9.13 5.78.072 7.05.015 8.33 0 8.74 0 12s.015 3.67.072 4.95c.058 1.27.26 2.15.558 2.91.306.79.717 1.46 1.384 2.13.667.67 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.015 4.95-.072c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.015-3.67-.072-4.95c-.06-1.28-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.012 15.26 0 12 0zm0 2.16c3.2 0 3.58.016 4.85.07 1.17.06 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.015 3.59-.07 4.85c-.06 1.17-.26 1.81-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.86.07s-3.59-.015-4.86-.07c-1.17-.06-1.82-.26-2.24-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.045-1.26-.06-1.65-.06-4.84s.016-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42C8.42 2.18 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zM12 16a4 4 0 110-8 4 4 0 010 8zm7.85-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+          <a href="https://www.tiktok.com/@quartsamunt" target="_blank" rel="noopener" aria-label="TikTok" class="s-tt"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+          <a href="https://www.facebook.com/share/1GNrDV7hcf/" target="_blank" rel="noopener" aria-label="Facebook" class="s-fb"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.86v-8.39H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.51c-1.49 0-1.96.93-1.96 1.88v2.25h3.33l-.53 3.47h-2.8v8.39C19.61 23.02 24 18.06 24 12.07z"/></svg></a>
+          <a href="https://open.spotify.com/show/0EzfzGZ8soaQ5lMT1SHshQ" target="_blank" rel="noopener" aria-label="Spotify" class="s-sp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14C9.6 9.9 15 10.56 18.72 12.84c.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Contacte</h4>
+        <p><a href="mailto:quartsamunt@gmail.com">quartsamunt@gmail.com</a><br>
+        <a href="tel:+34616148887">+34 616 14 88 87</a></p>
+      </div>
+      <div>
+        <h4>Escolta'ns</h4>
+        <p>Dijous 19:30 – 21:00<br>Domenys Ràdio · 107.6 FM</p>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Quarts Amunt</span>
+      <a href="legal.html#avis">Avís legal</a><a href="legal.html#privacitat">Política de privacitat</a><a href="legal.html#cookies">Cookies</a>
+    </div>
+    <div class="credit">Fotografies: Quarts Amunt · algunes imatges amb marca d'aigua OFTHEKEY — cal acreditar l'autor</div>
+  </div>
+</footer>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')],dots=[...document.querySelectorAll('.dots button')];
+  let i=0,timer;
+  function go(n){slides[i].classList.remove('on');dots[i].classList.remove('on');
+    i=n;slides[i].classList.add('on');dots[i].classList.add('on')}
+  function next(){go((i+1)%slides.length)}
+  function start(){timer=setInterval(next,5400)}
+  dots.forEach(d=>d.addEventListener('click',()=>{clearInterval(timer);go(+d.dataset.i);start()}));
+  start();
+</script>
+
+<script>
+(function(){
+  var b=document.querySelector('.nav-toggle'), m=document.querySelector('.nav-links');
+  if(!b||!m) return;
+  b.addEventListener('click',function(){
+    var o=m.classList.toggle('obert');
+    b.setAttribute('aria-expanded', o?'true':'false');
+  });
+  m.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){m.classList.remove('obert');b.setAttribute('aria-expanded','false');}
+  });
+})();
+</script>
+
+<script>
+/* comptadors que pugen quan entren a pantalla */
+(function(){
+  var nums = document.querySelectorAll('.x-num[data-to]');
+  if(!nums.length) return;
+  var quiet = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(quiet || !('IntersectionObserver' in window)) return;   /* es queden amb el valor final */
+
+  nums.forEach(function(el){ el.textContent = '0' + (el.dataset.suf || ''); });
+
+  function anima(el){
+    var fi = parseInt(el.dataset.to, 10), suf = el.dataset.suf || '';
+    var dur = 1600, t0 = null;
+    function pas(t){
+      if(!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 4);            /* frena al final */
+      el.textContent = Math.round(fi * e).toLocaleString('ca-ES') + suf;
+      if(p < 1) requestAnimationFrame(pas);
+    }
+    requestAnimationFrame(pas);
+  }
+
+  var obs = new IntersectionObserver(function(items){
+    items.forEach(function(i){
+      if(i.isIntersecting){ anima(i.target); obs.unobserve(i.target); }
+    });
+  }, {threshold: 0.45});
+  nums.forEach(function(el){ obs.observe(el); });
+})();
+</script>
+
+<script>
+/* ===== Barra EN DIRECTE =====================================================
+   Es mostra sola els dijous dins de l'horari del programa (hora de Barcelona).
+   PER CANVIAR-HO, nomes cal tocar les 3 linies de sota.
+   -------------------------------------------------------------------------- */
+(function(){
+  var HORA_INICI  = '19:30';                 // comenca el programa
+  var HORA_FINAL  = '21:00';                 // acaba el programa
+  var SENSE_PROGRAMA = ['2026-09-17'];       // dijous SENSE programa (AAAA-MM-DD)
+
+  var barra = document.getElementById('directe');
+  if(!barra) return;
+
+  function aMinuts(h){ var p = h.split(':'); return (+p[0])*60 + (+p[1]); }
+  var INICI = aMinuts(HORA_INICI), FINAL = aMinuts(HORA_FINAL);
+
+  function araBCN(){
+    try{
+      var f = new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Madrid',
+        year:'numeric', month:'2-digit', day:'2-digit',
+        hour:'2-digit', minute:'2-digit', hour12:false, weekday:'short'});
+      var p = {};
+      f.formatToParts(new Date()).forEach(function(x){ p[x.type] = x.value; });
+      return { data: p.year+'-'+p.month+'-'+p.day,
+               dijous: p.weekday === 'Thu',
+               minuts: (+p.hour % 24)*60 + (+p.minute) };
+    }catch(e){
+      var d = new Date();
+      return { data:'', dijous: d.getDay()===4, minuts: d.getHours()*60 + d.getMinutes() };
+    }
+  }
+
+  function comprova(){
+    var a = araBCN();
+    var viu = a.dijous
+           && a.minuts >= INICI && a.minuts < FINAL
+           && SENSE_PROGRAMA.indexOf(a.data) === -1;
+    barra.classList.toggle('on', viu);
+  }
+
+  comprova();
+  setInterval(comprova, 30000);
+})();
+</script>
+</body>
+</html>
