@@ -76,7 +76,14 @@
 @media(prefers-reduced-motion:reduce){.directe-dot{animation:none}}
 </style>
 <style>
-.g-hero{background:var(--negre);color:var(--crema);padding:86px 0 78px}
+.g-hero{position:relative;background:var(--negre);color:var(--crema);
+  padding:104px 0 92px;overflow:hidden;isolation:isolate}
+.g-hero::before{content:"";position:absolute;inset:-40px;
+  background:url("fotos/placa-plena.jpg") center 38%/cover no-repeat;
+  filter:blur(16px) saturate(.7) brightness(.5);transform:scale(1.08);z-index:-2}
+.g-hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(16,14,13,.78) 0%,rgba(16,14,13,.88) 55%,var(--negre) 100%)}
+.g-hero .wrap{position:relative}
 .g-hero .eyebrow{color:var(--vermell-clar)}
 .g-hero h1{font-size:clamp(38px,6.4vw,74px);text-transform:uppercase;line-height:1.02;
   letter-spacing:-.02em;margin:14px 0 20px}
@@ -193,8 +200,6 @@
     <a class="g-tornar" href="galeria.html">← Totes les galeries</a>
     <div class="eyebrow">19 de setembre de 2026</div>
     <h1>1r Concurs<br>de Castells</h1>
-    <p>Tot el material del 1r Concurs de Castells, per colles. Filtra la teva, mira-ho i
-       descarrega't el que vulguis. És vostre: feu-ne el que us vingui de gust.</p>
   </div>
 </header>
 
