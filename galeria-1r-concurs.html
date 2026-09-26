@@ -147,6 +147,11 @@
 .g-compta{font-size:13.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:#8a8079;margin-bottom:22px}
 .g-graella{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:0}
+.g-bloc{margin-top:8px}
+.g-bloc + .g-bloc{margin-top:74px;padding-top:56px;border-top:1px solid rgba(16,14,13,.14)}
+.g-bloc-tit{font-size:clamp(26px,3.4vw,38px);text-transform:uppercase;letter-spacing:-.01em;
+  line-height:1.1;margin:0 0 6px}
+.g-bloc-sub{color:#6b6259;font-size:16.5px;margin:0 0 4px}
 .g-item{position:relative;border-radius:4px;overflow:hidden;background:var(--crema-2)}
 .g-mini{position:relative;aspect-ratio:1/1;cursor:pointer;overflow:hidden}
 .g-mini img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
@@ -209,11 +214,26 @@
       Fes-ne el que vulguis: penja-ho, comparteix-ho, imprimeix-ho.
       Només et demanem que ens etiquetis a <b>@quartsamunt</b>.
     </div>
+
+    <div class="g-bloc">
+      <h2 class="g-bloc-tit">Fotos del fotògraf</h2>
+      <p class="g-bloc-sub">Alta resolució, llestes per imprimir.</p>
+      <div class="g-compta" id="compta-f"></div>
+      <div class="g-graella" id="graella-f"></div>
+      <div style="text-align:center;margin-top:36px">
+        <button class="btn btn-1" id="mes-f" hidden>Veure'n més</button>
+      </div>
+    </div>
+
+    <div class="g-bloc">
+      <h2 class="g-bloc-tit">Vídeos de la diada</h2>
+      <p class="g-bloc-sub">Gravats des de plaça durant el concurs.</p>
     <div class="g-compta" id="compta"></div>
     <div class="g-graella" id="graella"></div>
     <div class="g-buit" id="buit" hidden></div>
     <div style="text-align:center;margin-top:44px">
       <button class="btn btn-1" id="mes" hidden>Veure'n més</button>
+    </div>
     </div>
   </div>
 </section>
@@ -253,6 +273,270 @@
    Aquesta llista es genera automàticament a partir dels fitxers de
    media/1r-concurs/. No cal tocar-la a mà.
    ===================================================================== */
+var FOTOGRAF = [
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0001.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0001.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0002.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0002.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0003.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0003.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0004.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0004.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0005.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0005.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0006.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0006.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0007.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0007.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0008.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0008.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0009.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0009.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0010.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0010.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0011.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0011.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0012.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0012.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0013.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0013.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0014.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0014.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0015.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0015.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0016.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0016.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0017.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0017.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0018.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0018.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0019.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0019.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0020.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0020.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0021.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0021.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0022.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0022.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0023.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0023.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0024.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0024.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0025.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0025.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0026.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0026.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0027.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0027.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0028.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0028.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0029.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0029.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0030.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0030.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0031.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0031.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0032.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0032.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0033.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0033.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0034.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0034.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0035.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0035.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0036.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0036.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0037.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0037.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0038.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0038.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0039.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0039.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0040.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0040.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0041.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0041.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0042.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0042.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0043.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0043.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0044.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0044.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0045.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0045.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0046.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0046.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0047.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0047.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0048.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0048.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0049.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0049.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0050.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0050.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0051.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0051.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0052.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0052.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0053.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0053.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0054.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0054.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0055.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0055.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0056.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0056.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0057.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0057.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0058.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0058.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0059.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0059.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0060.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0060.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0061.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0061.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0062.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0062.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0063.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0063.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0064.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0064.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0065.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0065.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0066.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0066.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0067.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0067.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0068.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0068.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0069.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0069.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0070.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0070.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0071.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0071.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0072.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0072.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0073.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0073.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0074.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0074.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0075.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0075.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0076.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0076.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0077.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0077.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0078.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0078.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0079.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0079.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0080.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0080.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0081.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0081.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0082.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0082.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0083.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0083.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0084.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0084.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0085.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0085.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0086.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0086.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0087.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0087.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0088.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0088.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0089.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0089.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-1/QA-0090.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-1/QA-0090.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0091.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0091.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0092.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0092.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0093.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0093.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0094.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0094.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0095.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0095.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0096.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0096.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0097.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0097.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0098.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0098.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0099.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0099.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0100.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0100.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0101.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0101.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0102.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0102.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0103.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0103.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0104.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0104.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0105.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0105.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0106.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0106.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0107.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0107.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0108.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0108.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0109.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0109.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0110.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0110.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0111.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0111.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0112.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0112.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0113.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0113.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0114.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0114.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0115.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0115.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0116.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0116.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0117.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0117.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0118.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0118.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0119.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0119.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0120.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0120.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0121.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0121.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0122.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0122.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0123.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0123.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0124.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0124.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0125.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0125.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0126.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0126.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0127.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0127.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0128.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0128.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0129.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0129.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0130.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0130.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0131.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0131.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0132.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0132.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0133.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0133.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0134.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0134.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0135.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0135.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0136.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0136.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0137.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0137.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0138.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0138.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0139.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0139.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0140.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0140.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0141.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0141.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0142.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0142.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0143.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0143.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0144.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0144.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0145.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0145.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0146.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0146.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0147.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0147.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0148.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0148.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0149.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0149.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0150.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0150.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0151.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0151.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0152.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0152.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0153.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0153.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0154.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0154.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0155.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0155.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0156.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0156.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0157.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0157.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0158.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0158.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0159.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0159.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0160.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0160.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0161.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0161.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0162.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0162.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0163.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0163.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0164.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0164.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0165.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0165.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0166.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0166.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0167.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0167.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0168.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0168.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0169.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0169.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0170.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0170.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0171.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0171.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0172.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0172.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0173.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0173.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0174.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0174.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0175.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0175.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0176.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0176.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0177.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0177.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0178.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0178.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0179.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0179.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-2/QA-0180.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-2/QA-0180.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0181.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0181.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0182.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0182.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0183.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0183.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0184.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0184.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0185.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0185.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0186.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0186.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0187.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0187.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0188.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0188.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0189.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0189.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0190.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0190.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0191.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0191.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0192.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0192.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0193.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0193.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0194.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0194.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0195.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0195.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0196.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0196.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0197.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0197.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0198.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0198.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0199.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0199.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0200.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0200.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0201.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0201.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0202.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0202.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0203.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0203.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0204.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0204.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0205.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0205.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0206.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0206.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0207.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0207.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0208.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0208.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0209.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0209.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0210.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0210.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0211.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0211.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0212.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0212.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0213.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0213.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0214.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0214.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0215.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0215.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0216.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0216.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0217.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0217.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0218.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0218.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0219.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0219.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0220.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0220.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0221.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0221.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0222.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0222.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0223.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0223.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0224.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0224.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0225.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0225.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0226.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0226.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0227.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0227.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0228.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0228.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0229.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0229.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0230.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0230.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0231.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0231.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0232.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0232.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0233.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0233.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0234.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0234.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0235.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0235.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0236.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0236.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0237.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0237.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0238.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0238.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0239.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0239.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0240.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0240.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0241.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0241.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0242.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0242.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0243.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0243.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0244.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0244.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0245.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0245.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0246.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0246.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0247.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0247.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0248.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0248.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0249.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0249.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0250.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0250.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0251.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0251.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0252.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0252.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0253.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0253.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0254.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0254.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0255.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0255.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0256.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0256.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0257.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0257.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0258.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0258.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0259.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0259.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0260.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0260.jpg" },
+  { t:"foto", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/FOTOS-3/QA-0261.jpg", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/fotos-fotograf/mini/FOTOS-MINI-3/QA-0261.jpg" },
+];
+
 var MATERIAL = [
   { t:"video", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/1r-concurs/TANDA-1/IMG_8440-2.mp4", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/1r-concurs/mini/MINI-1/IMG_8440-2.jpg" },
   { t:"video", f:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/1r-concurs/TANDA-1/IMG_8441-2.mp4", m:"https://pub-fb5310f8eb7a40bb9db5e41febcaf64e.r2.dev/1r-concurs/mini/MINI-1/IMG_8441-2.jpg" },
@@ -564,57 +848,24 @@ var MATERIAL = [
 ];
 
 (function(){
-  var PAS = 60;                     // quants se'n mostren de cop
-  var mostrats = 0;
-  var graella=document.getElementById('graella'),
-      buit=document.getElementById('buit'),
-      compta=document.getElementById('compta'),
-      btnMes=document.getElementById('mes'),
-      visor=document.getElementById('visor'),
+  var PAS = 60;
+  var visor=document.getElementById('visor'),
       visorIn=document.getElementById('visor-in'),
       visorBaixa=document.getElementById('visor-baixa'),
-      actual=0;
+      llistaOberta=null, actual=0;
 
   var ICO_BAIXA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 12l5 5 5-5"/><path d="M4 21h16"/></svg>';
   var ICO_PLAY='<svg viewBox="0 0 24 24" fill="rgba(255,255,255,.94)"><path d="M8 5v14l11-7z"/></svg>';
 
-  if(!MATERIAL.length){
-    buit.hidden=false;
-    buit.innerHTML="Encara estem pujant el material de la diada.<br>Torna-hi d'aquí a uns dies.";
-    compta.textContent='';
-    return;
+  function compta(ll){
+    var nf=ll.filter(function(m){return m.t==='foto';}).length, nv=ll.length-nf;
+    return (nf? nf+(nf===1?' foto':' fotos') : '') + (nf&&nv? '  ·  ':'') +
+           (nv? nv+(nv===1?' vídeo':' vídeos') : '');
   }
 
-  var nf=MATERIAL.filter(function(m){return m.t==='foto';}).length;
-  var nv=MATERIAL.length-nf;
-  compta.textContent = (nf? nf+(nf===1?' foto':' fotos') : '') +
-                       (nf&&nv? '  ·  ':'') +
-                       (nv? nv+(nv===1?' vídeo':' vídeos') : '');
-
-  function pinta(){
-    var fins=Math.min(mostrats+PAS, MATERIAL.length);
-    for(var i=mostrats;i<fins;i++){
-      var m=MATERIAL[i];
-      var it=document.createElement('div');
-      it.className='g-item';
-      it.innerHTML=
-        '<div class="g-mini">'+
-          '<img loading="lazy" src="'+(m.m||m.f)+'" alt="">'+
-          (m.t==='video'?'<span class="g-tipus">Vídeo</span><span class="g-play">'+ICO_PLAY+'</span>':'')+
-        '</div>'+
-        '<a class="g-baixa" href="'+m.f+'" download title="Descarregar">'+ICO_BAIXA+'</a>';
-      (function(idx){
-        it.querySelector('.g-mini').onclick=function(){obre(idx);};
-      })(i);
-      graella.appendChild(it);
-    }
-    mostrats=fins;
-    btnMes.hidden = mostrats>=MATERIAL.length;
-  }
-
-  function obre(i){
-    actual=i;
-    var m=MATERIAL[i];
+  function obre(ll,i){
+    llistaOberta=ll; actual=i;
+    var m=ll[i];
     visorIn.innerHTML = m.t==='video'
       ? '<video controls autoplay playsinline src="'+m.f+'"></video>'
       : '<img src="'+m.f+'" alt="">';
@@ -623,15 +874,53 @@ var MATERIAL = [
     document.body.style.overflow='hidden';
   }
   function mou(d){
-    var i=(actual+d+MATERIAL.length)%MATERIAL.length;
-    obre(i);
+    if(!llistaOberta) return;
+    obre(llistaOberta,(actual+d+llistaOberta.length)%llistaOberta.length);
   }
   function tanca(){
     visor.classList.remove('on'); visorIn.innerHTML='';
-    document.body.style.overflow='';
+    document.body.style.overflow=''; llistaOberta=null;
   }
 
-  btnMes.onclick=pinta;
+  function munta(ll, idGraella, idMes, idCompta){
+    var graella=document.getElementById(idGraella),
+        btn=document.getElementById(idMes),
+        cap=document.getElementById(idCompta),
+        fets=0;
+    if(!graella) return;
+    if(cap) cap.textContent=compta(ll);
+    function pinta(){
+      var fins=Math.min(fets+PAS, ll.length);
+      for(var i=fets;i<fins;i++){
+        var m=ll[i];
+        var it=document.createElement('div');
+        it.className='g-item';
+        it.innerHTML=
+          '<div class="g-mini">'+
+            '<img loading="lazy" src="'+(m.m||m.f)+'" alt="">'+
+            (m.t==='video'?'<span class="g-tipus">Vídeo</span><span class="g-play">'+ICO_PLAY+'</span>':'')+
+          '</div>'+
+          '<a class="g-baixa" href="'+m.f+'" download title="Descarregar">'+ICO_BAIXA+'</a>';
+        (function(idx){ it.querySelector('.g-mini').onclick=function(){obre(ll,idx);}; })(i);
+        graella.appendChild(it);
+      }
+      fets=fins;
+      if(btn) btn.hidden = fets>=ll.length;
+    }
+    if(btn) btn.onclick=pinta;
+    pinta();
+  }
+
+  var buit=document.getElementById('buit');
+  if(!MATERIAL.length && !(typeof FOTOGRAF!=='undefined' && FOTOGRAF.length)){
+    buit.hidden=false;
+    buit.innerHTML="Encara estem pujant el material de la diada.<br>Torna-hi d'aquí a uns dies.";
+    return;
+  }
+
+  if(typeof FOTOGRAF!=='undefined') munta(FOTOGRAF,'graella-f','mes-f','compta-f');
+  munta(MATERIAL,'graella','mes','compta');
+
   document.getElementById('tanca').onclick=tanca;
   document.getElementById('ant').onclick=function(e){e.stopPropagation();mou(-1);};
   document.getElementById('seg').onclick=function(e){e.stopPropagation();mou(1);};
@@ -642,8 +931,6 @@ var MATERIAL = [
     if(e.key==='ArrowLeft') mou(-1);
     if(e.key==='ArrowRight') mou(1);
   });
-
-  pinta();
 })();
 </script>
 
