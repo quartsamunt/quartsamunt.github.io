@@ -73,42 +73,18 @@
 </style>
 
 <style>
-/* ===== Barra EN DIRECTE (dijous) ===== */
 .topstick{position:sticky;top:0;z-index:70}
 .topstick nav{position:static;top:auto;z-index:auto}
-#directe{display:none;background:var(--vermell,#C0392B);color:#fff;
   box-shadow:0 2px 14px rgba(0,0,0,.25)}
-#directe.on{display:block}
-.directe-in{display:flex;align-items:center;gap:14px;padding:10px 28px;flex-wrap:wrap}
-.directe-dot{width:10px;height:10px;border-radius:50%;background:#fff;flex:none;
   animation:dpuls 1.4s ease-in-out infinite}
 @keyframes dpuls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
-.directe-tag{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:12.5px}
-.directe-txt{font-size:14px;opacity:.92;flex:1 1 auto}
-.directe-btn{background:#fff;color:var(--vermell,#C0392B);text-decoration:none;
   font-weight:800;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;
   padding:10px 20px;border-radius:999px;white-space:nowrap;flex:none;
   transition:transform .15s,box-shadow .15s}
-.directe-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25)}
-@media(max-width:700px){
-  .directe-in{gap:9px;padding:9px 18px}
-  .directe-txt{display:none}
-  .directe-tag{font-size:11.5px}
-  .directe-btn{font-size:11.5px;padding:9px 15px;margin-left:auto}
-}
-@media(prefers-reduced-motion:reduce){.directe-dot{animation:none}}
 </style>
 </head>
 <body>
 <div class="topstick">
-<div id="directe">
-  <div class="wrap directe-in">
-    <span class="directe-dot"></span>
-    <span class="directe-tag">Ara en directe</span>
-    <span class="directe-txt">Estem emetent Quarts Amunt</span>
-    <a class="directe-btn" href="https://www.domenysradio.cat/" target="_blank" rel="noopener">Escolta'ns en directe</a>
-  </div>
-</div>
 <nav><div class="wrap nav-in">
   <a href="index.html"><img class="logo" src="https://static.wixstatic.com/media/367235_e0820dc532e54214bc0fb2d8ea7a9b6d~mv2.png" alt="Quarts Amunt"></a>
   <button class="nav-toggle" aria-label="Obrir el menú" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -143,8 +119,8 @@
       <p>Des de 2024 compartim ràdio, diades i esdeveniments en directe, amb humor i sense
          solemnitats, portant els castells més enllà de les places i creant comunitat a Catalunya
          i a l'estranger.</p>
-      <p>El programa s'emet cada dijous de 19:30 a 21:00 a Domenys Ràdio (107.6 FM), i es pot
-         escoltar sencer a Spotify quan vulguis.</p>
+      <p>El programa s'ha emès cada dijous de 19:30 a 21:00 a Domenys Ràdio (107.6 FM).
+         Ara estem fora de temporada, però el tens sencer a Spotify quan vulguis.</p>
       <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
         <a class="btn btn-1" href="programes.html">Escolta'ns</a>
         <a class="btn btn-3" href="equip.html">Coneix l'equip</a>
@@ -231,7 +207,7 @@
       </div>
       <div><h4>Contacte</h4><p><a href="mailto:quartsamunt@gmail.com">quartsamunt@gmail.com</a><br>
         <a href="tel:+34616148887">+34 616 14 88 87</a></p></div>
-      <div><h4>Escolta'ns</h4><p>Dijous 19:30 – 21:00<br>Domenys Ràdio · 107.6 FM</p></div>
+      <div><h4>Escolta'ns</h4><p>Fora de temporada<br>Tots els programes, a Spotify</p></div>
     </div>
     <div class="f-bot"><span>© 2026 Quarts Amunt</span><a href="legal.html#avis">Avís legal</a><a href="legal.html#privacitat">Política de privacitat</a><a href="legal.html#cookies">Cookies</a></div>
   </div>
@@ -251,49 +227,6 @@
 })();
 </script>
 
-<script>
-/* ===== Barra EN DIRECTE =====================================================
-   Es mostra sola els dijous dins de l'horari del programa (hora de Barcelona).
-   PER CANVIAR-HO, nomes cal tocar les 3 linies de sota.
-   -------------------------------------------------------------------------- */
-(function(){
-  var HORA_INICI  = '19:30';                 // comenca el programa
-  var HORA_FINAL  = '21:00';                 // acaba el programa
-  var SENSE_PROGRAMA = ['2026-09-17'];       // dijous SENSE programa (AAAA-MM-DD)
 
-  var barra = document.getElementById('directe');
-  if(!barra) return;
-
-  function aMinuts(h){ var p = h.split(':'); return (+p[0])*60 + (+p[1]); }
-  var INICI = aMinuts(HORA_INICI), FINAL = aMinuts(HORA_FINAL);
-
-  function araBCN(){
-    try{
-      var f = new Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Madrid',
-        year:'numeric', month:'2-digit', day:'2-digit',
-        hour:'2-digit', minute:'2-digit', hour12:false, weekday:'short'});
-      var p = {};
-      f.formatToParts(new Date()).forEach(function(x){ p[x.type] = x.value; });
-      return { data: p.year+'-'+p.month+'-'+p.day,
-               dijous: p.weekday === 'Thu',
-               minuts: (+p.hour % 24)*60 + (+p.minute) };
-    }catch(e){
-      var d = new Date();
-      return { data:'', dijous: d.getDay()===4, minuts: d.getHours()*60 + d.getMinutes() };
-    }
-  }
-
-  function comprova(){
-    var a = araBCN();
-    var viu = a.dijous
-           && a.minuts >= INICI && a.minuts < FINAL
-           && SENSE_PROGRAMA.indexOf(a.data) === -1;
-    barra.classList.toggle('on', viu);
-  }
-
-  comprova();
-  setInterval(comprova, 30000);
-})();
-</script>
 </body>
 </html>
